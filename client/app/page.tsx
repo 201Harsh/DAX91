@@ -1,9 +1,11 @@
-import React from 'react'
+import DAX91LandingPage from "./Components/DAX91LandingPage";
 
 const page = () => {
   return (
-    <div className='text-blue-300 text-6xl uppercase font-bold'>page</div>
-  )
-}
+    <>
+      <DAX91LandingPage />
+    </>
+  );
+};
 
-export default page
+export default page;
