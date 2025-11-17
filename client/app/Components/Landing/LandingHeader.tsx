@@ -1,22 +1,32 @@
 import { FaRobot, FaPlay } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 
 const LandingHeader = ({ handleConnect, isConnected, isLoading }: any) => {
   return (
     <header className="fixed top-0 w-full backdrop-blur-md z-50 p-4">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <motion.div
-            className="flex items-center space-x-2"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <FaRobot className="text-3xl text-red-500" />
-            <span className="text-xl font-bold bg-linear-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
-              DAX91
-            </span>
-          </motion.div>
+          <Link href="/">
+            <motion.div
+              className="flex items-center space-x-1 h-14 w-14"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Image
+                src="/img/logo.png"
+                alt="DAX91 Logo"
+                width={100}
+                height={100}
+                priority
+              />
+              <span className="text-xl font-bold bg-linear-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
+                DAX91
+              </span>
+            </motion.div>
+          </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
             {[
