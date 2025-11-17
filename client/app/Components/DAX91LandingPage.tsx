@@ -25,24 +25,10 @@ import LandingHeader from "./Landing/LandingHeader";
 import LandingFooter from "./Landing/LandingFooter";
 
 export default function DAX91LandingPage() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleConnect = async () => {
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    setIsConnected(true);
-    setIsLoading(false);
-  };
-
   return (
     <div className="min-h-screen bg-linear-to-br from-black via-black/60 to-red-500/20 text-white">
       {/* Header */}
-      <LandingHeader
-        handleConnect={handleConnect}
-        isConnected={isConnected}
-        isLoading={isLoading}
-      />
+      <LandingHeader />
 
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
@@ -80,7 +66,6 @@ export default function DAX91LandingPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
               <Link href="/daxai">
                 <motion.button
-                  onClick={handleConnect}
                   className="bg-linear-to-r from-red-500 to-red-700 px-8 py-4 rounded-full font-semibold text-lg hover:from-red-600 hover:to-red-800 transition-all duration-300 border border-red-600/50 shadow-lg shadow-red-500/20"
                   whileTap={{ scale: 0.95 }}
                 >
@@ -466,13 +451,10 @@ export default function DAX91LandingPage() {
               intelligences.
             </p>
             <motion.button
-              onClick={handleConnect}
               className="bg-linear-to-r from-red-500 to-red-700 px-8 py-4 rounded-full font-semibold text-lg hover:from-red-600 hover:to-red-800 transition-all duration-300 border border-red-600/50 shadow-lg shadow-red-500/20"
               whileTap={{ scale: 0.95 }}
             >
-              {isConnected
-                ? "Connected to DAX AI Network"
-                : "Connect to DAX AI Network"}
+              Connect to DAX AI Network
             </motion.button>
           </motion.div>
         </div>
