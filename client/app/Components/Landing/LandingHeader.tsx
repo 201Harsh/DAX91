@@ -1,11 +1,11 @@
-import { FaRobot, FaPlay } from "react-icons/fa";
+import { FaPlay } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
 const LandingHeader = ({ handleConnect, isConnected, isLoading }: any) => {
   return (
-    <header className="fixed top-0 w-full backdrop-blur-md z-50 p-4">
+    <header className="fixed top-0 right-0 left-0 backdrop-blur-md z-50 p-4 max-w-screen">
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <Link href="/">

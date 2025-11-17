@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  FaRobot,
   FaNetworkWired,
   FaCode,
   FaSearch,
@@ -21,6 +20,7 @@ import {
   FaGlobe,
   FaChartLine,
 } from "react-icons/fa";
+import Link from "next/link";
 import LandingHeader from "./Landing/LandingHeader";
 import LandingFooter from "./Landing/LandingFooter";
 
@@ -36,7 +36,7 @@ export default function DAX91LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-black via-black/40 to-red-500/30 text-white">
+    <div className="min-h-screen bg-linear-to-br from-black via-black/60 to-red-500/20 text-white">
       {/* Header */}
       <LandingHeader
         handleConnect={handleConnect}
@@ -78,21 +78,25 @@ export default function DAX91LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-              <motion.button
-                onClick={handleConnect}
-                className="bg-linear-to-r from-red-500 to-red-700 px-8 py-4 rounded-full font-semibold text-lg hover:from-red-600 hover:to-red-800 transition-all duration-300 border border-red-600/50 shadow-lg shadow-red-500/20"
-                whileTap={{ scale: 0.95 }}
-              >
-                Start with DAX AI
-              </motion.button>
+              <Link href="/daxai">
+                <motion.button
+                  onClick={handleConnect}
+                  className="bg-linear-to-r from-red-500 to-red-700 px-8 py-4 rounded-full font-semibold text-lg hover:from-red-600 hover:to-red-800 transition-all duration-300 border border-red-600/50 shadow-lg shadow-red-500/20"
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Start with DAX AI
+                </motion.button>
+              </Link>
 
-              <motion.button
-                className="border border-red-500/50 px-8 py-4 rounded-full font-semibold text-lg hover:border-red-400 hover:bg-red-500/10 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                View Documentation
-              </motion.button>
+              <Link href="/docs">
+                <motion.button
+                  className="border border-red-500/50 px-8 py-4 rounded-full font-semibold text-lg hover:border-red-400 hover:bg-red-500/10 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  View Documentation
+                </motion.button>
+              </Link>
             </div>
 
             <motion.div
@@ -207,7 +211,7 @@ export default function DAX91LandingPage() {
       </section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-20 px-6">
+      <section id="how-it-works" className="py-20 px-4">
         <div className="container mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -290,7 +294,7 @@ export default function DAX91LandingPage() {
       </section>
 
       {/* Sub-AI Network Section */}
-      <section id="sub-ai-network" className="py-20 px-6 bg-black/30">
+      <section id="sub-ai-network" className="py-20 px-4 bg-black/30">
         <div className="container mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -380,7 +384,7 @@ export default function DAX91LandingPage() {
       </section>
 
       {/* Benefits Section */}
-      <section id="benefits" className="py-20 px-6">
+      <section id="benefits" className="py-20 px-4">
         <div className="container mx-auto">
           <motion.div
             className="text-center mb-16"
@@ -423,8 +427,8 @@ export default function DAX91LandingPage() {
               <motion.div
                 key={benefit.title}
                 className="flex items-start space-x-4 p-6 bg-black/40 rounded-xl border border-red-500/20 hover:border-red-500/50 transition-all duration-300"
-                initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: index % 2 === 0 ? -30 : 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.6 }}
                 whileHover={{ scale: 1.02 }}
               >
@@ -446,7 +450,7 @@ export default function DAX91LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-6 bg-linear-to-r from-red-600/20 to-red-700/30 border-y border-red-500/30">
+      <section className="py-20 px-4 bg-linear-to-r from-red-600/20 to-red-700/30 border-y border-red-500/30">
         <div className="container mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
