@@ -29,23 +29,19 @@ const LandingHeader = ({ handleConnect, isConnected, isLoading }: any) => {
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8">
-            {[
-              "Features",
-              "How It Works",
-              "Sub-AI Network",
-              "Use Cases",
-              "Benefits",
-            ].map((item) => (
-              <motion.a
-                key={item}
-                href={`#${item.toLowerCase().replace(" ", "-")}`}
-                className="hover:text-red-400 transition-colors duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                {item}
-              </motion.a>
-            ))}
+            {["Features", "About", "Contact", "Use Cases", "Documentation"].map(
+              (item) => (
+                <motion.a
+                  key={item}
+                  href={`/${item.toLowerCase()}`}
+                  className="hover:text-red-400 transition-colors duration-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item}
+                </motion.a>
+              )
+            )}
           </nav>
 
           <motion.button
