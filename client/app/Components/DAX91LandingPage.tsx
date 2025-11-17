@@ -8,10 +8,6 @@ import {
   FaSearch,
   FaPalette,
   FaBug,
-  FaPlay,
-  FaTwitter,
-  FaGithub,
-  FaLinkedin,
   FaServer,
   FaBrain,
   FaShieldAlt,
@@ -26,6 +22,7 @@ import {
   FaChartLine,
 } from "react-icons/fa";
 import LandingHeader from "./Landing/LandingHeader";
+import LandingFooter from "./Landing/LandingFooter";
 
 export default function DAX91LandingPage() {
   const [isConnected, setIsConnected] = useState(false);
@@ -478,106 +475,7 @@ export default function DAX91LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black py-12 px-6 border-t border-red-900/50">
-        <div className="container mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center space-x-2 mb-4">
-                <FaRobot className="text-2xl text-red-500" />
-                <span className="text-xl font-bold text-red-400">DAX91</span>
-              </div>
-              <p className="text-gray-400 text-sm leading-relaxed">
-                Next-generation autonomous AI architecture powered by a hidden
-                network of specialized sub-AIs.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-bold mb-4 text-red-400">Product</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a
-                    href="#features"
-                    className="hover:text-red-400 transition-colors duration-300"
-                  >
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#how-it-works"
-                    className="hover:text-red-400 transition-colors duration-300"
-                  >
-                    How It Works
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#sub-ai-network"
-                    className="hover:text-red-400 transition-colors duration-300"
-                  >
-                    Sub-AI Network
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-bold mb-4 text-red-400">Technology</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-red-400 transition-colors duration-300"
-                  >
-                    AI Architecture
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-red-400 transition-colors duration-300"
-                  >
-                    Parallel Processing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-red-400 transition-colors duration-300"
-                  >
-                    Network Systems
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-bold mb-4 text-red-400">Connect</h3>
-              <div className="flex space-x-4">
-                {[FaTwitter, FaGithub, FaLinkedin].map((Icon, index) => (
-                  <motion.a
-                    key={index}
-                    href="#"
-                    className="text-gray-400 hover:text-red-400 transition-colors duration-300 bg-black/50 p-2 rounded-lg"
-                    whileHover={{
-                      scale: 1.2,
-                      backgroundColor: "rgba(239, 68, 68, 0.1)",
-                    }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Icon className="text-xl" />
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-red-900/50 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 DAX91 Autonomous AI Systems. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <LandingFooter />
     </div>
   );
 }
