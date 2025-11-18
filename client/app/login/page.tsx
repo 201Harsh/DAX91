@@ -256,7 +256,7 @@ export default function LoginPage() {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-linear-to-br from-black to-gray-900 rounded-2xl p-6 w-full max-w-md border border-red-500/30"
+                className="bg-linear-to-br from-black to-gray-900 rounded-2xl p-6 w-full max-w-2xl border border-red-500/30"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
