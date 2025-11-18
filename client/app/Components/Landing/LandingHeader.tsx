@@ -14,7 +14,7 @@ const LandingHeader = () => {
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
     { name: "Use Cases", href: "/useases" },
-    { name: "Documentation", href: "/documentation" },
+    { name: "Documentation", href: "/docs" },
   ];
 
   const toggleMobileMenu = () => {
