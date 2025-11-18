@@ -246,7 +246,7 @@ export default function AccountCreationPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 p-4 rounded-lg bg-black/40 border border-red-500/30 text-center"
+            className="mt-6 p-4 rounded-lg bg-black/80 border border-red-500/10 text-center"
           >
             <p className="text-gray-300">{message}</p>
           </motion.div>
@@ -269,14 +269,14 @@ export default function AccountCreationPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4"
+              className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-2"
               onClick={(e) => e.target === e.currentTarget && resetPopup()}
             >
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-linear-to-br from-black to-gray-900 rounded-2xl p-6 w-full max-w-md border border-red-500/30"
+                className="bg-linear-to-br from-black via-black/40 to-red-500/10 backdrop-blur-lg rounded-2xl p-6 w-full max-w-4xl border border-red-500/30"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6">
@@ -322,6 +322,8 @@ export default function AccountCreationPage() {
                       <div className="relative">
                         <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                         <input
+                          name="name"
+                          id="name"
                           type="text"
                           value={formData.fullName}
                           onChange={(e) =>
@@ -341,6 +343,8 @@ export default function AccountCreationPage() {
                       <div className="relative">
                         <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                         <input
+                          name="email"
+                          id="email"
                           type="email"
                           value={formData.email}
                           onChange={(e) =>
@@ -360,6 +364,8 @@ export default function AccountCreationPage() {
                       <div className="relative">
                         <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                         <input
+                          name="password"
+                          id="password"
                           type={showPassword ? "text" : "password"}
                           value={formData.password}
                           onChange={(e) =>
@@ -384,7 +390,7 @@ export default function AccountCreationPage() {
                     <button
                       onClick={handleManualSignup}
                       disabled={isLoading}
-                      className="w-full bg-linear-to-r from-red-500 to-red-700 py-3 rounded-lg font-semibold text-white hover:from-red-600 hover:to-red-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-linear-to-r from-red-500 to-red-700 py-3 rounded-lg font-semibold text-white hover:from-red-600 hover:to-red-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                     >
                       {isLoading ? (
                         <div className="flex items-center justify-center space-x-2">
@@ -444,7 +450,7 @@ export default function AccountCreationPage() {
                       <button
                         onClick={verifyOTP}
                         disabled={isLoading}
-                        className="w-full bg-linear-to-r from-red-500 to-red-700 py-3 rounded-lg font-semibold text-white hover:from-red-600 hover:to-red-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-linear-to-r from-red-500 to-red-700 py-3 rounded-lg font-semibold text-white hover:from-red-600 hover:to-red-800 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                       >
                         {isLoading ? (
                           <div className="flex items-center justify-center space-x-2">
