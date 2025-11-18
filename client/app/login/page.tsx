@@ -195,7 +195,7 @@ export default function LoginPage() {
                   <FaEnvelope className="text-2xl text-red-400" />
                 </div>
                 <div>
-                  <h3 className="text-white font-semibold text-lg">Sign in with Email</h3>
+                  <h3 className="text-white font-semibold text-lg">Log in with Email</h3>
                   <p className="text-gray-400 text-sm">Use your email and password</p>
                 </div>
               </div>
@@ -269,7 +269,7 @@ export default function LoginPage() {
                     </button>
                     <div>
                       <h2 className="text-xl font-bold text-white">
-                        Sign In to DAX91
+                        Log In to DAX91
                       </h2>
                       <p className="text-gray-400 text-sm mt-1">
                         Enter your credentials to continue
