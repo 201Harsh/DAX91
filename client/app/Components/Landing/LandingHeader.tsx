@@ -10,10 +10,11 @@ const LandingHeader = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigationItems = [
+    { name: "Home", href: "/" },
     { name: "Features", href: "/features" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
-    { name: "Use Cases", href: "/useases" },
+    { name: "View Demo", href: "/demo" },
     { name: "Documentation", href: "/docs" },
   ];
 
@@ -25,7 +26,7 @@ const LandingHeader = () => {
     <>
       <header className="fixed top-0 right-0 left-0 backdrop-blur-md z-50 bg-black/40">
         <div className="container mx-auto px-10 py-8">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-4">
             <Link href="/">
               <div className="flex items-center space-x-2">
                 <div className="h-10 w-10 relative">
@@ -45,7 +46,7 @@ const LandingHeader = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-10">
               {navigationItems.map((item) => (
                 <Link
                   key={item.name}
