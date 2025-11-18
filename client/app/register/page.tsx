@@ -12,6 +12,7 @@ import {
   FaArrowLeft,
   FaCheckCircle,
 } from "react-icons/fa";
+import Link from "next/link";
 
 export default function AccountCreationPage() {
   const [activeMethod, setActiveMethod] = useState<"google" | "manual" | null>(
@@ -241,6 +242,24 @@ export default function AccountCreationPage() {
           </motion.div>
         </div>
 
+        {/* Sign Up Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          className="text-center mt-6"
+        >
+          <p className="text-gray-400">
+            Already have an account?{" "}
+            <Link
+              href="/login"
+              className="text-red-400 hover:text-red-300 font-semibold transition-colors"
+            >
+              Login here
+            </Link>
+          </p>
+        </motion.div>
+
         {/* Status Message */}
         {message && (
           <motion.div
@@ -401,6 +420,40 @@ export default function AccountCreationPage() {
                         "Create Account"
                       )}
                     </button>
+
+                    {/* Divider */}
+                    <div className="relative flex items-center py-4">
+                      <div className="grow border-t border-gray-600"></div>
+                      <span className="shrink mx-4 text-gray-400 text-sm">
+                        or
+                      </span>
+                      <div className="grow border-t border-gray-600"></div>
+                    </div>
+
+                    {/* Alternative Sign In Options */}
+                    <div className="space-y-3">
+                      <button
+                        onClick={handleGoogleSignup}
+                        disabled={isLoading}
+                        className="w-full bg-black/40 border border-red-500/20 py-3 rounded-lg font-semibold text-white hover:border-red-500/50 transition-all duration-300 disabled:opacity-50 flex items-center justify-center space-x-3"
+                      >
+                        <FaGoogle className="text-red-400" />
+                        <span>Continue with Google</span>
+                      </button>
+
+                      {/* Sign Up Link */}
+                      <div className="text-center">
+                        <p className="text-gray-400 text-sm">
+                          Already have an account?{" "}
+                          <Link
+                            href="/login"
+                            className="text-red-400 hover:text-red-300 font-semibold"
+                          >
+                            Login
+                          </Link>
+                        </p>
+                      </div>
+                    </div>
                   </motion.div>
                 )}
 
