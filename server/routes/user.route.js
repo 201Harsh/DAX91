@@ -1,7 +1,9 @@
-const router = require("express").Router();
+import { Router } from 'express';
 
-router.get("/welcome", (req, res) => {
-  res.send("Welcome to the User API");
+const UserRouter = Router();
+
+UserRouter.route('/register').post((req, res) => {
+    res.send('POST request');
 });
 
-module.exports = router;
+export default UserRouter;

@@ -1,12 +1,11 @@
-const express = require("express");
-const app = express();
+import express from 'express';
+import mongoose from 'mongoose';
 
-const UserRouter = require("./routes/user.route");
+
+const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/users", UserRouter);
 
-
-module.exports = app;
+export default app
