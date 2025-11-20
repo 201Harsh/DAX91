@@ -64,7 +64,7 @@ export default function DAX91LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-              <Link href="/daxai">
+              <Link href="/register">
                 <motion.button
                   className="bg-linear-to-r from-red-500 to-red-700 px-8 py-4 rounded-full font-semibold text-lg hover:from-red-600 hover:to-red-800 transition-all duration-300 border border-red-600/50 shadow-lg shadow-red-500/20"
                   whileTap={{ scale: 0.95 }}
