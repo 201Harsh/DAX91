@@ -28,7 +28,7 @@ export const VerifyuserOTP = async ({ email, otp }) => {
     throw new Error("All fields are required for manual registration.");
   }
 
-  const tempuser = await TempUser.findOne({ email });
+  const tempuser = await TempUser.findOne({ email }).select("+password");
 
   if (!tempuser) {
     throw new Error("User not found.");
@@ -49,6 +49,26 @@ export const VerifyuserOTP = async ({ email, otp }) => {
   });
 
   await tempuser.deleteOne();
+
+  return user;
+};
+
+export const FindLoginUser = async ({ email, password }) => {
+  if (!email || !password) {
+    throw new Error("All fields are required for login.");
+  }
+
+  const user = await User.findOne({ email }).select("+password");
+
+  if (!user) {
+    throw new Error("Invalid credentials!");
+  }
+
+  const isPasswordMatch = await user.matchPassword(password);
+
+  if (!isPasswordMatch) {
+    throw new Error("Invalid credentials!");
+  }
 
   return user;
 };

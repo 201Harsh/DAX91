@@ -1,6 +1,7 @@
 import TempUser from "../models/tempuser.model.js";
 import User from "../models/user.model.js";
 import {
+  FindLoginUser,
   RegisterManualUser,
   VerifyuserOTP,
 } from "../services/user.services.js";
@@ -160,23 +161,15 @@ export const Loginuser = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    const LoggedInUser = await FindLoginUser({ email, password });
 
-    if (!user) {
-      return res.status(404).json({
+    if (!LoggedInUser) {
+      return res.status(400).json({
         error: "Invalid credentials!",
       });
     }
 
-    const isPasswordMatch = await user.matchPassword(password);
-
-    if (!isPasswordMatch) {
-      return res.status(401).json({
-        error: "Invalid credentials!",
-      });
-    }
-
-    const token = user.JWTGEN();
+    const token = LoggedInUser.JWTGEN();
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -189,10 +182,9 @@ export const Loginuser = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Login successful!",
-      user,
+      LoggedInUser,
       token,
     });
-
   } catch (error) {
     res.status(500).json({
       error: error.message,
