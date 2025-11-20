@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { RegisterUser, VerifyOTP } from "../controllers/user.controller.js";
+import {
+  Loginuser,
+  RegisterUser,
+  VerifyOTP,
+} from "../controllers/user.controller.js";
 import { body } from "express-validator";
 import validateRequest from "../middlewares/validate.middleware.js";
 
@@ -31,6 +35,16 @@ UserRouter.post(
   ],
   validateRequest,
   VerifyOTP
+);
+
+UserRouter.post(
+  "/login",
+  [
+    body("email").isEmail().notEmpty().withMessage("Email is required"),
+    body("password").isString().notEmpty().withMessage("Password is required"),
+  ],
+  validateRequest,
+  Loginuser
 );
 
 export default UserRouter;

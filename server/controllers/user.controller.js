@@ -62,11 +62,12 @@ export const RegisterUser = async (req, res) => {
 
     const otp = Math.floor(100000 + Math.random() * 900000);
     const otpExpiry = new Date(Date.now() + 1000 * 60 * 5);
+    const HashedPassword = await User.hashPassword(password);
 
     const tempuser = await RegisterManualUser({
       name,
       email,
-      password,
+      password: HashedPassword,
       otp,
       otpExpiry,
     });
@@ -102,12 +103,96 @@ export const VerifyOTP = async (req, res) => {
     }
 
     const user = await VerifyuserOTP({ email, otp });
+    const token = user.JWTGEN();
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1 * 12 * 60 * 60 * 1000,
+      path: "/",
+    });
 
     res.status(200).json({
       success: true,
       message: "Account created successfully!",
       user,
+      token,
     });
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
+
+export const Loginuser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    if (typeof email !== "string" || typeof password !== "string") {
+      return res.status(400).json({
+        error:
+          "Invalid request parameters in body! Only String values are allowed.",
+      });
+    }
+    const ValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+    if (!ValidEmail.test(email)) {
+      return res.status(406).json({
+        message: "Invalid Email Address!",
+      });
+    }
+
+    const AllowedEmails = [
+      "gmail.com",
+      "yahoo.com",
+      "hotmail.com",
+      "outlook.com",
+      "live.com",
+      "icloud.com",
+      "mail.com",
+    ];
+
+    if (!AllowedEmails.includes(email.split("@")[1])) {
+      return res.status(406).json({
+        message: "Invalid Email Address!",
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        error: "Invalid credentials!",
+      });
+    }
+
+    const isPasswordMatch = await user.matchPassword(password);
+
+    if (!isPasswordMatch) {
+      return res.status(401).json({
+        error: "Invalid credentials!",
+      });
+    }
+
+    const token = user.JWTGEN();
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      maxAge: 1 * 12 * 60 * 60 * 1000,
+      path: "/",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Login successful!",
+      user,
+      token,
+    });
+
   } catch (error) {
     res.status(500).json({
       error: error.message,
