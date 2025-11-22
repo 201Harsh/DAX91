@@ -80,6 +80,8 @@ export default function LoginPage() {
       if (res.status === 200) {
         setMessage(res.data.message);
         setActiveMethod("manual");
+        setShowManualPopup(false);
+        setFormData({ email: "", password: "" });
       }
     } catch (error: any) {
       console.log(error);
@@ -123,7 +125,6 @@ export default function LoginPage() {
 
   const resetPopup = () => {
     setShowManualPopup(false);
-    setFormData({ email: "", password: "" });
     setMessage("");
   };
 
