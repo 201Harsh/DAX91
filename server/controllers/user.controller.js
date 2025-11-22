@@ -41,7 +41,7 @@ export const RegisterUser = async (req, res) => {
 
     if (!AllowedEmails.includes(email.split("@")[1])) {
       return res.status(406).json({
-        message: "Invalid Email Address!",
+        error: "Invalid Email Address!",
       });
     }
 
@@ -49,7 +49,7 @@ export const RegisterUser = async (req, res) => {
 
     if (ifTempuserExists) {
       return res.status(202).json({
-        message:
+        error:
           "Account Alredy Exists! Just Verify Your OTP!",
       });
     }
@@ -142,7 +142,7 @@ export const Loginuser = async (req, res) => {
 
     if (!ValidEmail.test(email)) {
       return res.status(406).json({
-        message: "Invalid Email Address!",
+        error: "Invalid Email Address! Please enter a valid email address.",
       });
     }
 
@@ -158,7 +158,7 @@ export const Loginuser = async (req, res) => {
 
     if (!AllowedEmails.includes(email.split("@")[1])) {
       return res.status(406).json({
-        message: "Invalid Email Address!",
+        error: "Invalid Email Address! Please enter a valid email address.",
       });
     }
 

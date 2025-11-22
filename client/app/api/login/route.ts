@@ -22,6 +22,7 @@ export async function POST(req: Request) {
 
     return NextRes;
   } catch (error: any) {
+    console.log(error.response.data)
     if (error.response) {
       return Response.json(
         { error: error.response?.data?.error || error.response?.data?.errors },

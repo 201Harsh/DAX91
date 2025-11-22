@@ -41,7 +41,12 @@ UserRouter.post(
   "/login",
   [
     body("email").isEmail().notEmpty().withMessage("Email is required"),
-    body("password").isString().notEmpty().withMessage("Password is required"),
+    body("password")
+      .isString()
+      .notEmpty()
+      .withMessage("Password is required")
+      .isLength({ min: 6 })
+      .withMessage("Password must be at least 6 characters long"),
   ],
   validateRequest,
   Loginuser
