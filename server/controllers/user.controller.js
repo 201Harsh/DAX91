@@ -49,7 +49,8 @@ export const RegisterUser = async (req, res) => {
 
     if (ifTempuserExists) {
       return res.status(202).json({
-        error: "A user with the email already exists! Try logging in instead.",
+        message:
+          "Account Alredy Exists! Just Verify Your OTP!",
       });
     }
 
@@ -73,7 +74,7 @@ export const RegisterUser = async (req, res) => {
       otpExpiry,
     });
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "OTP sent to your email address",
       user: tempuser,

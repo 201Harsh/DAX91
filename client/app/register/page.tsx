@@ -13,6 +13,7 @@ import {
   FaCheckCircle,
 } from "react-icons/fa";
 import Link from "next/link";
+import Axiosinstance from "@/config/AxiosInstance";
 
 export default function AccountCreationPage() {
   const [activeMethod, setActiveMethod] = useState<"google" | "manual" | null>(
@@ -21,7 +22,7 @@ export default function AccountCreationPage() {
   const [showManualPopup, setShowManualPopup] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
-    fullName: "",
+    name: "",
     email: "",
     password: "",
     otp: "",
@@ -62,8 +63,13 @@ export default function AccountCreationPage() {
 
   // Manual Signup Step 1: Create Account
   const handleManualSignup = async () => {
-    if (!formData.fullName || !formData.email || !formData.password) {
+    if (!formData.name || !formData.email || !formData.password) {
       setMessage("❌ Please fill all fields");
+      return;
+    }
+
+    if (formData.name.length < 3) {
+      setMessage("❌ Name must be at least 3 characters");
       return;
     }
 
@@ -76,20 +82,25 @@ export default function AccountCreationPage() {
     setMessage("");
 
     try {
-      // Simulate API call to create account and send OTP
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      const mockResponse = {
-        success: true,
-        message: "OTP sent to your email",
-      };
-
-      if (mockResponse.success) {
+      const res = await Axiosinstance.post("/users/register", formData);
+      if (res.status === 201) {
+        setMessage(res.data.message);
+        setActiveMethod("manual");
         setCurrentStep(2);
-        setMessage("✅ OTP sent to your email address");
       }
-    } catch (error) {
-      setMessage("❌ Failed to create account");
+      if (res.status === 202) {
+        setCurrentStep(2);
+        setActiveMethod("manual");
+        setMessage(res.data.message);
+      }
+    } catch (error: any) {
+      setMessage(
+        error.response?.data?.error ||
+          error.response.data.errors.forEach((e: { msg: string }) => {
+            setMessage(e.msg);
+          }) ||
+          "❌ Failed to create account"
+      );
     } finally {
       setIsLoading(false);
     }
@@ -114,7 +125,7 @@ export default function AccountCreationPage() {
         user: {
           id: "manual_123",
           email: formData.email,
-          name: formData.fullName,
+          name: formData.name,
         },
       };
 
@@ -124,7 +135,7 @@ export default function AccountCreationPage() {
         setTimeout(() => {
           setShowManualPopup(false);
           setCurrentStep(1);
-          setFormData({ fullName: "", email: "", password: "", otp: "" });
+          setFormData({ name: "", email: "", password: "", otp: "" });
         }, 2000);
       }
     } catch (error) {
@@ -155,9 +166,6 @@ export default function AccountCreationPage() {
 
   const resetPopup = () => {
     setShowManualPopup(false);
-    setCurrentStep(1);
-    setFormData({ fullName: "", email: "", password: "", otp: "" });
-    setMessage("");
   };
 
   return (
@@ -344,9 +352,9 @@ export default function AccountCreationPage() {
                           name="name"
                           id="name"
                           type="text"
-                          value={formData.fullName}
+                          value={formData.name}
                           onChange={(e) =>
-                            handleInputChange("fullName", e.target.value)
+                            handleInputChange("name", e.target.value)
                           }
                           className="w-full bg-black/40 border border-red-500/20 rounded-lg pl-10 pr-4 py-3 text-white placeholder-gray-400 focus:border-red-500 focus:outline-none transition-colors"
                           placeholder="Enter your full name"
@@ -420,6 +428,17 @@ export default function AccountCreationPage() {
                         "Create Account"
                       )}
                     </button>
+
+                    {/* Popup Message */}
+                    {message && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-4 p-3 rounded-lg bg-black/40 border border-red-500/30 text-center"
+                      >
+                        <p className="text-gray-300 text-sm">{message}</p>
+                      </motion.div>
+                    )}
 
                     {/* Divider */}
                     <div className="relative flex items-center py-4">
@@ -515,25 +534,36 @@ export default function AccountCreationPage() {
                         )}
                       </button>
 
-                      <button
-                        onClick={resendOTP}
-                        disabled={isLoading}
-                        className="w-full text-gray-400 hover:text-red-400 transition-colors duration-300 text-sm"
-                      >
-                        Didn't receive code? Resend OTP
-                      </button>
+                      <div className="flex gap-5 items-center justify-center">
+                        <button
+                          onClick={resendOTP}
+                          disabled={isLoading}
+                          className="w-full text-gray-400 hover:text-red-400 transition-colors duration-300 text-sm cursor-pointer"
+                        >
+                          Didn't receive code? Resend OTP
+                        </button>
+                        <button
+                          onClick={()=>{
+                            setCurrentStep(1)
+                            setMessage('')
+                          }}
+                          disabled={isLoading}
+                          className="w-full text-gray-400 hover:text-red-400 transition-colors duration-300 text-sm cursor-pointer"
+                        >
+                          Wrong Email?{" "}
+                          <span className="text-red-400">Change Email</span>
+                        </button>
+                      </div>
                     </div>
-                  </motion.div>
-                )}
-
-                {/* Popup Message */}
-                {message && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-4 p-3 rounded-lg bg-black/40 border border-red-500/30 text-center"
-                  >
-                    <p className="text-gray-300 text-sm">{message}</p>
+                    {message && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-6 p-4 rounded-lg bg-black/80 border border-red-500/10 text-center"
+                      >
+                        <p className="text-gray-300">{message}</p>
+                      </motion.div>
+                    )}
                   </motion.div>
                 )}
               </motion.div>
