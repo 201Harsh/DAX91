@@ -14,6 +14,8 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import Axiosinstance from "@/config/AxiosInstance";
+import AxiosProxyInstance from "@/config/AxiosProxyInstance";
+import { useRouter } from "next/navigation";
 
 export default function AccountCreationPage() {
   const [activeMethod, setActiveMethod] = useState<"google" | "manual" | null>(
@@ -30,6 +32,8 @@ export default function AccountCreationPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+
+  const router = useRouter();
 
   // Google Signup Function
   const handleGoogleSignup = async () => {
@@ -117,29 +121,20 @@ export default function AccountCreationPage() {
     setMessage("");
 
     try {
-      // Simulate OTP verification API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const res = await AxiosProxyInstance.post("/api/verify", {
+        email: formData.email,
+        otp: formData.otp,
+      });
 
-      const mockResponse = {
-        success: true,
-        user: {
-          id: "manual_123",
-          email: formData.email,
-          name: formData.name,
-        },
-      };
-
-      if (mockResponse.success) {
-        setMessage("✅ Account created successfully!");
+      if (res.status === 200) {
+        setMessage(res.data.message);
+        setShowManualPopup(false);
         setActiveMethod("manual");
-        setTimeout(() => {
-          setShowManualPopup(false);
-          setCurrentStep(1);
-          setFormData({ name: "", email: "", password: "", otp: "" });
-        }, 2000);
+        setCurrentStep(1);
+        setFormData({ name: "", email: "", password: "", otp: "" });
       }
-    } catch (error) {
-      setMessage("❌ Invalid OTP. Please try again.");
+    } catch (error: any) {
+      setMessage(error.response.data.error || "Server response error");
     } finally {
       setIsLoading(false);
     }
@@ -543,9 +538,9 @@ export default function AccountCreationPage() {
                           Didn't receive code? Resend OTP
                         </button>
                         <button
-                          onClick={()=>{
-                            setCurrentStep(1)
-                            setMessage('')
+                          onClick={() => {
+                            setCurrentStep(1);
+                            setMessage("");
                           }}
                           disabled={isLoading}
                           className="w-full text-gray-400 hover:text-red-400 transition-colors duration-300 text-sm cursor-pointer"
