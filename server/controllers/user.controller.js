@@ -4,7 +4,7 @@ import {
   FindLoginUser,
   RegisterManualUser,
   VerifyuserOTP,
-} from "../services/user.services.js";
+} from "../services/user.service.js";
 
 export const RegisterUser = async (req, res) => {
   try {
